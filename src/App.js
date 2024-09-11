@@ -1,24 +1,32 @@
 import logo from './logo.svg';
 import './App.css';
+import { ThemeContext, themes } from './Providers/theme';
+import Header from './Components/Header/Header';
+import { useState } from 'react';
+import ApplicationWrapper from './Components/AppliationWrapper/index';
 
 function App() {
+  const [selectedtheme,setTheme]=useState(themes.light)
+
+  const handleClick=()=>{
+    // if(selectedtheme===themes.light){
+    //   setTheme(themes.dark)
+    // }
+    // else{
+    //   // setTheme(themes.light)
+    // }
+    // selectedtheme===themes.light?setTheme(themes.dark):setTheme(themes.light)
+    setTheme(selectedtheme===themes.light?themes.dark:themes.light)
+  }
   return (
+    <ThemeContext.Provider value={selectedtheme}>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       < ApplicationWrapper>
+        <Header/>
+        <button onClick={handleClick}>Change</button>
+        </ApplicationWrapper>
     </div>
+    </ThemeContext.Provider>
   );
 }
 
